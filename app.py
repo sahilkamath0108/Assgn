@@ -175,5 +175,20 @@ elif selected_page == "RAG":
                 
         elif file_extension == "pdf":
             st.success("File type: PDF")
+            with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                tmp_file.write(uploaded_file.getvalue())
+                tmp_file_path = tmp_file.name
+                
+            vectorstore = csvRag.processPDF(tmp_file_path)
+            
+            if vectorstore:
+                qa = ConversationalRetrievalChain.from_llm(llm, retriever=vectorstore.as_retriever())
+                query = st.text_input("Enter query: ")
+                if query:
+                    chat_history = []
+                    result = qa.invoke({"question":query, "chat_history":chat_history})
+                    print("Response: ", result['answer'])
+                    chat_history.append(result['answer'])
+                    st.write(result['answer'])
 
 
