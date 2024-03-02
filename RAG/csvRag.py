@@ -1,25 +1,35 @@
-from langchain.chains import ConversationalRetrievalChain
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain_community.vectorstores import FAISS
 import google.generativeai as genai
 
+
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.embeddings.sentence_transformer import (
     SentenceTransformerEmbeddings,
 )
 
-embedding_function = SentenceTransformerEmbeddings(model_name="multi-qa-mpnet-base-dot-v1")
+embedding_function = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+DB_FAISS_PATH = "vectorstore/db_faiss"
 
-
-def processCSV(path, llm):
-    loader = CSVLoader(file_path=path, encoding="utf-8", csv_args={
+def processCSV(path):
+    loader = CSVLoader(file_path=path, encoding="ISO-8859-1", csv_args={
                 'delimiter': ','})
     data = loader.load()
+    print(data)
     
-    vectorstore = FAISS.from_documents(data, embedding_function)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=20)
+    text_chunks = text_splitter.split_documents(data)
+
+    print(len(text_chunks))
+
+# Download Sentence Transformers Embedding From Hugging Face
+    embeddings = HuggingFaceEmbeddings(model_name = 'sentence-transformers/all-MiniLM-L6-v2')
+
+# COnverting the text Chunks into embeddings and saving the embeddings into FAISS Knowledge Base
+    vectorstore = FAISS.from_documents(text_chunks, embeddings)
+
+    vectorstore.save_local(DB_FAISS_PATH)
     
-    chain = ConversationalRetrievalChain.from_llm(
-    llm = llm,
-    retriever=vectorstore.as_retriever())
-    
-    return chain
+    return vectorstore
 

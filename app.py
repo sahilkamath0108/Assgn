@@ -14,6 +14,8 @@ import requests
 from io import BytesIO
 import tempfile
 from RAG import csvRag
+from langchain.chains import ConversationalRetrievalChain
+from langchain.chains import RetrievalQA 
 
 
 llm = ChatGoogleGenerativeAI(
@@ -158,12 +160,17 @@ elif selected_page == "RAG":
                 tmp_file.write(uploaded_file.getvalue())
                 tmp_file_path = tmp_file.name
                 
-            chain = csvRag.processCSV(tmp_file_path, llm)
+            vectorstore = csvRag.processCSV(tmp_file_path)
             
-            if chain:
-                query = st.text_input("Ask a question about the data:")
-                result = chain.invoke({"question": query, "chat_history" : []})
-                st.write(result["answer"])
+            if vectorstore:
+                qa = ConversationalRetrievalChain.from_llm(llm, retriever=vectorstore.as_retriever())
+                query = st.text_input("Enter query: ")
+                if query:
+                    chat_history = []
+                    result = qa.invoke({"question":query, "chat_history":chat_history})
+                    print("Response: ", result['answer'])
+                    chat_history.append(result['answer'])
+                    st.write(result['answer'])
 
                 
         elif file_extension == "pdf":
