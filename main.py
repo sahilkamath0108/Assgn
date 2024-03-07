@@ -15,7 +15,7 @@ from ML import genImage
 from multimodal import gemini
 
 #basic tasks
-from basicTasks import youtube, search, time, chatbot, singlePrompt
+from basicTasks import youtube, search, time, chatbot, singlePrompt, sendMail
 
     
 if __name__ == '__main__':
@@ -56,6 +56,8 @@ if __name__ == '__main__':
                 imageGen = genImage.createImage()
             elif 'jarvis describe image' in query:
                 gemini.describe()
+            elif 'jarvis send email' in query:
+                sendMail.sendEmail()
                         
             elif 'malf' not in query:
                 say('I did not quite catch that, mind repeating it?')
