@@ -1,3 +1,8 @@
+#helper modules
+from helpers.listen import listen
+from helpers.say import say
+
+
 import pathlib
 import textwrap
 import os
@@ -14,13 +19,18 @@ genai.configure(api_key=os.getenv("gemini"))
 model = genai.GenerativeModel('gemini-pro-vision')
 
 
-def describe(path, desc):
-    print(path, desc)
+def describe():
+    say('Enter the location of the image :')
+    path =input('Enter the location of the image :')
+    if path:
+        say('Any description?')
+        desc = listen()
     img = PIL.Image.open(path)
     response = model.generate_content([desc, img], stream=True)
     response.resolve()
     print(response.text)
-    return response.text
+    say(response.text)
+    return True
 
 if __name__ == '__main__':
     describe("C:\\Users\\Hp\\Desktop\\Code\\flower.jpg")

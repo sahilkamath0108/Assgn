@@ -14,10 +14,9 @@ import requests
 #     return response.json()[0][0]
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+sid_obj = SentimentIntensityAnalyzer()
  
 def sentiment_scores(sentence):
- 
-    sid_obj = SentimentIntensityAnalyzer()
 
     sentiment_dict = sid_obj.polarity_scores(sentence)
     

@@ -1,4 +1,5 @@
 import os
+from deal_with_files.vecDB import vectorize
 
 location_map = {
     'desktop': r'C:\Users\Hp\Desktop',
@@ -36,7 +37,7 @@ def deal_with_query(query) :
         else:
             print(f"File not found: {path}")
 
-    return path
+    vectorize(path)
 
 if __name__ == "__main__":
     deal_with_query('Jarvis open pdf offer letter located in Code folder')

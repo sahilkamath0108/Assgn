@@ -25,6 +25,7 @@ def createImage():
         file_path = f"C:\\Users\\Hp\\Desktop\\Code\\task\\assgn\\Assgn\\images\\{prompt[0:10]}.jpg"  
     
         image.save(file_path, exist_ok=True)
+        say('Image generated and stored succesfully in images folder')
     return True
 
 

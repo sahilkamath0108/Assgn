@@ -8,6 +8,8 @@ from langchain_community.embeddings.sentence_transformer import (
 from langchain_community.vectorstores import Chroma, FAISS
 from langchain_text_splitters import CharacterTextSplitter
 
+from deal_with_files.performQA import ques_ans
+
 DB_FAISS_PATH = "vectorstore/db_faiss"
    
 def vectorize(path):
@@ -28,7 +30,7 @@ def vectorize(path):
 
     vectorstore.save_local(DB_FAISS_PATH)   
     
-    return vectorstore
+    ques_ans(vectorstore)
 
 if __name__ == '__main__':
     path = "C:\\Users\\Hp\\Desktop\\words.pdf"
