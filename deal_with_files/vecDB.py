@@ -19,7 +19,7 @@ def vectorize(path):
             if text:
                 text += text
 
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     docs = text_splitter.split_text(text)
 
     embedding_function = SentenceTransformerEmbeddings(model_name="multi-qa-mpnet-base-dot-v1")

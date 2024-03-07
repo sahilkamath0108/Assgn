@@ -22,9 +22,9 @@ def createImage():
         response = requests.post(API_URL, headers=headers, json=query).content
         
         image = Image.open(io.BytesIO(response))
-        file_path = f"../images/{prompt[0:10]}.jpg"  
+        file_path = f"C:\\Users\\Hp\\Desktop\\Code\\task\\assgn\\Assgn\\images\\{prompt[0:10]}.jpg"  
     
-        image.save(file_path)
+        image.save(file_path, exist_ok=True)
     return True
 
 

@@ -37,7 +37,7 @@ def ques_ans(vectorstore):
 
 def chat(chat_history, user_input):
     
-    qa = ConversationalRetrievalChain.from_llm(local_llm, retriever=db.as_retriever())
+    qa = ConversationalRetrievalChain.from_llm(llm, retriever=db.as_retriever())
     
 
     bot_response = qa.invoke({"question":user_input, "chat_history":chat_history})

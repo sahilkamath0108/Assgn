@@ -70,7 +70,7 @@ def chat():
     say('What can I help you with?')
     while count != 1:
         query = listen().lower()
-        if 'error' in query:
+        if 'error' in query or 'malf' in query:
             continue
         if 'jarvis quit chatting' in query:
             count = 1
