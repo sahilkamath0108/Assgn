@@ -4,7 +4,9 @@ from youtubesearchpython import VideosSearch
 import datetime
 import promptFile
 import pyperclip
-from ML.sentiment import pred_sent
+
+#Sentiment
+from ML import sentiment
 
 #deal with files
 from deal_with_files.open_file import deal_with_query
@@ -94,10 +96,9 @@ if __name__ == '__main__':
         query = listen()
         query = query.lower()
         if query:
-            # sentiment = pred_sent(query)
-            # if(sentiment and sentiment['label'] == 'positive' and sentiment['score'] >= 0.9):
             print(query)
-            #     say("You seem to be in a happy mood sir!")
+            if(sentiment.sentiment_scores(query)):
+                say("You seem to be angry sir! Calm down")   
                 
             if 'jarvis play' in query:
                 youtube_video(query)
@@ -134,7 +135,7 @@ if __name__ == '__main__':
                 imageGen = genImage.createImage()
                 if imageGen:
                     say('Image generated and stored succesfully')
-            elif 'jarvis describe image':
+            elif 'jarvis describe image' in query:
                 say('Enter the location of the image :')
                 path =input('Enter the location of the image :')
                 if path:
