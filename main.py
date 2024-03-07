@@ -17,6 +17,7 @@ from helpers.say import say
 
 #gen image
 from ML import genImage
+from multimodal import gemini
 
 memory = ''
 
@@ -48,7 +49,7 @@ def enterPrompt():
     response = promptFile.return_answer(prompt)
     
     token = response.split()
-    to_be_said = response.split('.')[0:3]
+    to_be_said = response.split('.')[0:3] 
     say(to_be_said)
         
     if(len(token) > 30):
@@ -125,7 +126,7 @@ if __name__ == '__main__':
                        print('vectorized') 
                        done_ques = ques_ans(vectorstore)
                     else:
-                        say('System compromised, could nt read file')
+                        say('System compromised, could not read file')
                 else:
                     say('No file found with that name, try again')
                 continue 
@@ -133,6 +134,13 @@ if __name__ == '__main__':
                 imageGen = genImage.createImage()
                 if imageGen:
                     say('Image generated and stored succesfully')
+            elif 'jarvis describe image':
+                say('Enter the location of the image :')
+                path =input('Enter the location of the image :')
+                if path:
+                    say('Any description?')
+                    description = listen()
+                    say(gemini.describe(path, description))
                         
             elif 'malf' not in query:
                 say('I did not quite catch that, mind repeating it?')
