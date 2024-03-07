@@ -35,7 +35,7 @@ if __name__ == '__main__':
             elif query.startswith('jarvis search') and query.endswith('on google'):
                 search.google_search(query)
             elif 'jarvis what time is it' in query:
-                time()
+                time.time()
             elif 'jarvis new prompt' in query:
                 singlePrompt.enterPrompt()
             elif 'jarvis send email' in query:
@@ -52,7 +52,7 @@ if __name__ == '__main__':
                 deal_with_query(query)
                 continue 
             elif 'jarvis generate image' in query:
-                imageGen = genImage.createImage()
+                genImage.createImage()
             elif 'jarvis describe image' in query:
                 gemini.describe()
                         
