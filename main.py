@@ -30,7 +30,6 @@ if __name__ == '__main__':
             print(query)
             if(sentiment.sentiment_scores(query)):
                 say("You seem to be angry sir! Calm down")   
-                
             if 'jarvis play' in query:
                 youtube.youtube_video(query)
             elif query.startswith('jarvis search') and query.endswith('on google'):
@@ -39,11 +38,11 @@ if __name__ == '__main__':
                 time()
             elif 'jarvis new prompt' in query:
                 singlePrompt.enterPrompt()
+            elif 'jarvis send email' in query:
+                sendMail.sendEmail()
             elif 'jarvis power off' in query:
                 say('Shutting down')
                 exit()
-            elif 'jarvis clear memory' in  query:
-                memory = ''
             elif 'jarvis talk to me' in query:
                 print('Chatting')
                 chatbot.chat()
@@ -56,8 +55,6 @@ if __name__ == '__main__':
                 imageGen = genImage.createImage()
             elif 'jarvis describe image' in query:
                 gemini.describe()
-            elif 'jarvis send email' in query:
-                sendMail.sendEmail()
                         
             elif 'malf' not in query:
                 say('I did not quite catch that, mind repeating it?')

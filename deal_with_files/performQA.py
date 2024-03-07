@@ -48,24 +48,24 @@ def chat(chat_history, user_input):
         chat_history = chat_history + [(user_input, response)]
     return bot_response
 
-checkpoint = "MBZUAI/LaMini-Flan-T5-783M"     #google/flan-t5-xl  google/flan-t5  MBZUAI/LaMini-Flan-T5-783M
-tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-base_model = AutoModelForSeq2SeqLM.from_pretrained(
-    checkpoint,
-    device_map="auto",
-    offload_folder="offload",
-    torch_dtype = torch.float32)
+# checkpoint = "MBZUAI/LaMini-Flan-T5-783M"     #google/flan-t5-xl  google/flan-t5  MBZUAI/LaMini-Flan-T5-783M
+# tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+# base_model = AutoModelForSeq2SeqLM.from_pretrained(
+#     checkpoint,
+#     device_map="auto",
+#     offload_folder="offload",
+#     torch_dtype = torch.float32)
 
-pipe = pipeline(
-    'text2text-generation',
-    model = base_model,
-    tokenizer = tokenizer,
-    max_length = 512,
-    do_sample = True,
-    temperature = 0.3,
-    top_p= 0.95
-)
-local_llm = HuggingFacePipeline(pipeline=pipe)
+# pipe = pipeline(
+#     'text2text-generation',
+#     model = base_model,
+#     tokenizer = tokenizer,
+#     max_length = 512,
+#     do_sample = True,
+#     temperature = 0.3,
+#     top_p= 0.95
+# )
+# local_llm = HuggingFacePipeline(pipeline=pipe)
 
 
 if __name__ == "__main__":

@@ -12,8 +12,7 @@ def location_translate(location):
     return location_map.get(location.lower(), None)
 
 def deal_with_query(query) : 
-    count = 0
-    temp_index = 0
+
     words = query.lower().split()
     
     for i, word in enumerate(words):
